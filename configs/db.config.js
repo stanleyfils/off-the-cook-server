@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 mongoose
-  .connect('mongodb://localhost/awesome-ptwd-library-project', {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
-  .catch(err => console.error('Error connecting to mongo', err));
+	.connect('mongodb://localhost/off-the-cook', {
+		useCreateIndex: true,
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	})
+	.then((x) => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
+	.catch((err) => console.error('Error connecting to mongo', err));
