@@ -5,8 +5,8 @@ const express = require('express');
 const router = express.Router();
 
 // ********* require Author and Book models in order to use them *********
-const Recipe = require('../models/Recipe.model');
-const RecipeBook = require('../models/RecipeBook.model');
+// const Recipe = require('../models/Recipe.model');
+const recipeBook = require('../models/RecipeBook.model');
 
 // ****************************************************************************************
 // POST - create a book
@@ -36,7 +36,7 @@ router.get('/recipeBooks', (req, res) => {
 // <form action="/books/{{this._id}}/delete" method="post">
 router.post('/recipeBooks/:recipeBookId/delete', (req, res) => {
 	recipeBook
-		.findByIdAndRemove(req.params.bookId)
+		.findByIdAndRemove(req.params.recipeBookId)
 		.then(() => res.json({ message: 'Successfully removed!' }))
 		.catch((err) => next(err));
 });

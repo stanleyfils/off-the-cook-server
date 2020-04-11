@@ -10,7 +10,7 @@ const Recipe = require('../models/Recipe.model');
 // ****************************************************************************************
 // POST route to create a new recipe in the DB
 
-// <form action="/authors" method="POST">
+// *********<form action="/authors" method="POST">
 recipeRouter.post('/recipes', (req, res, next) => {
 	console.log(req.body);
 	Recipe.create(req.body).then((recipeDoc) => res.status(200).json(recipeDoc)).catch((err) => next(err));
@@ -20,8 +20,7 @@ recipeRouter.post('/recipes', (req, res, next) => {
 // GET all recipes from the DB
 
 recipeRouter.get('/recipes', (req, res, next) => {
-	recipe
-		.find() // <-- .find() method gives us always an ARRAY back
+	Recipe.find() // <-- .find() method gives us always an ARRAY back
 		.then((recipesFromDB) => res.status(200).json({ recipes: recipesFromDB }))
 		.catch((err) => next(err));
 });
@@ -30,9 +29,8 @@ recipeRouter.get('/recipes', (req, res, next) => {
 // POST route to delete the recipe
 
 recipeRouter.post('/recipes/:recipeId/delete', (req, res) => {
-	recipe
-		.findByIdAndRemove(req.params.recipeId)
-		.then(() => res.json({ message: 'Successfully removed!' }))
+	Recipe.findByIdAndRemove(req.params.recipeId)
+		.then(() => res.json({ message: 'Recipe successfully removed!' }))
 		.catch((err) => next(err));
 });
 
@@ -40,9 +38,8 @@ recipeRouter.post('/recipes/:recipeId/delete', (req, res) => {
 // POST route to save the recipe updates
 
 recipeRouter.post('/recipes/:id/update', (req, res) => {
-	recipe
-		.findByIdAndUpdate(req.params.id, req.body, { new: true })
-		.then((updatedBook) => res.status(200).json({ recipeBook: updatedBook }))
+	Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true })
+		.then((updatedRecipe) => res.status(200).json({ recipe: updatedRecipe }))
 		.catch((err) => next(err));
 });
 
@@ -50,10 +47,9 @@ recipeRouter.post('/recipes/:id/update', (req, res) => {
 // GET route for getting the recipe details
 
 recipeRouter.get('/recipes/:someRecipeId', (req, res) => {
-	recipeBook
-		.findById(req.params.someRecipeId)
+	Recipe.findById(req.params.someRecipeId)
 		.populate('recipe')
-		.then((foundBook) => res.status(200).json({ recipeBook: foundBook }))
+		.then((foundRecipe) => res.status(200).json({ recipe: foundRecipe }))
 		.catch((err) => next(err));
 });
 
