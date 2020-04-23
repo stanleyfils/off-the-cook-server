@@ -7,6 +7,7 @@ const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
+const cors = require('cors');
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -32,6 +33,15 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
+
+
+app.use(
+  cors({
+    credentials: true,
+    // origin: ["http://localhost:3000", "https://appName.herokuapp.com"],
+    origin: true,
+  })
+);
 
 // const index = require('./routes/index');
 // app.use('/', index);
