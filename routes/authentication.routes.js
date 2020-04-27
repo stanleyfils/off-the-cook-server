@@ -86,13 +86,14 @@ router.post('/logout', routeGuard, (req, res, next) => {
 	res.status(200).json({ message: 'Logout successful!' });
 });
 
-router.get('/isLoggedIn', (req, res) => {
+router.get('/', (req, res) => {
 	if (req.user) {
+		isLoggedIn;
 		req.user.passwordHash = undefined;
 		res.status(200).json({ user: req.user });
 		return;
 	}
-	res.status(401).json({ message: 'You are not logged in!' });
+	res.status(401).json({ message: 'You must be logged in to access.' });
 });
 
 module.exports = router;
