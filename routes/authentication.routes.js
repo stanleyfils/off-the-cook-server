@@ -12,8 +12,9 @@ const routeGuard = require('../configs/route-guard.config');
 
 // .post() route ==> to process form data
 router.post('/signup', (req, res, next) => {
+	console.log('party in the backend');
 	const { username, email, password } = req.body;
-
+	console.log(username, email, password);
 	if (!username || !email || !password) {
 		res.status(401).json({
 			message: 'All fields are mandatory. Please provide your username, email and password.'
@@ -86,13 +87,15 @@ router.post('/logout', routeGuard, (req, res, next) => {
 	res.status(200).json({ message: 'Logout successful!' });
 });
 
-router.get('/', (req, res) => {
+router.get('/isLoggedIn', (req, res) => {
 	if (req.user) {
-		isLoggedIn;
+		// isLoggedIn;
+		console.log('test test test');
 		req.user.passwordHash = undefined;
 		res.status(200).json({ user: req.user });
 		return;
 	}
+	console.log('major test');
 	res.status(401).json({ message: 'You must be logged in to access.' });
 });
 
