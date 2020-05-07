@@ -6,6 +6,7 @@ const recipeRouter = express.Router();
 
 // ********* require Recipe model in order to use it for CRUD *********
 const Recipe = require("../models/Recipe.model");
+const axios = require("axios");
 
 // ****************************************************************************************
 // POST route to create a new recipe in the DB
@@ -53,6 +54,20 @@ recipeRouter.get("/recipes/:someRecipeId", (req, res) => {
     .populate("recipe")
     .then((foundRecipe) => res.status(200).json(foundRecipe))
     .catch((err) => next(err));
+});
+
+// ****************************************************************************************
+// GET route for getting the recipe from external API
+
+recipeRouter.post("/searchRecipes", (req, res, next) => {
+  axios
+    .get(
+      `https://api.spoonacular.com/recipes/complexSearch?query=${req.body.param}&apiKey=${process.env.API_KEY}`
+    )
+    .then((recipesFromAPI) => {
+      res.status(200).json(recipesFromAPI.data.results);
+    })
+    .catch((err) => res.status(400).json({ message: err }));
 });
 
 module.exports = recipeRouter;
