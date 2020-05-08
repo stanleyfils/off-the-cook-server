@@ -45,19 +45,19 @@ router.post("/recipeBooks/:recipeBookId/delete", (req, res) => {
 // POST route to save the updates
 
 // <form action="/books/{{foundBook._id}}/update" method="POST">
-router.post("/recipeBooks/:id/update", (req, res) => {
+router.post("/recipeBooks/:recipeBookId/update", (req, res) => {
   recipeBook
-    .findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .findByIdAndUpdate(req.params.recipeBookId, req.body, { new: true })
     .then((updatedBook) => res.status(200).json(updatedBook))
     .catch((err) => next(err));
 });
 
 // ****************************************************************************************
-// GET route for getting the book details
+// GET route for getting the recipe book details
 
-router.get("/recipeBooks/:someBookId", (req, res) => {
+router.get("/recipeBooks/:recipeBookId", (req, res) => {
   recipeBook
-    .findById(req.params.someBookId)
+    .findById(req.params.recipeBookId)
     .populate("recipe")
     .then((foundBook) => res.status(200).json(foundBook))
     .catch((err) => next(err));

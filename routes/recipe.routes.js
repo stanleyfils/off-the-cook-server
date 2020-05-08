@@ -38,7 +38,7 @@ recipeRouter.post("/recipes/:recipeId/delete", (req, res) => {
 });
 
 // ****************************************************************************************
-// POST route to save the recipe updates
+// POST route to update the recipe
 
 recipeRouter.post("/recipes/:id/update", (req, res) => {
   Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -49,8 +49,8 @@ recipeRouter.post("/recipes/:id/update", (req, res) => {
 // ****************************************************************************************
 // GET route for getting the recipe details
 
-recipeRouter.get("/recipes/:someRecipeId", (req, res) => {
-  Recipe.findById(req.params.someRecipeId)
+recipeRouter.get("/recipes/:recipeId", (req, res) => {
+  Recipe.findById(req.params.recipeId)
     .populate("recipe")
     .then((foundRecipe) => res.status(200).json(foundRecipe))
     .catch((err) => next(err));
