@@ -12,7 +12,7 @@ const axios = require("axios");
 // POST route to create a new recipe in the DB
 
 // *********<form action="/authors" method="POST">
-recipeRouter.post("/recipes", (req, res, next) => {
+recipeRouter.post("/addRecipe", (req, res, next) => {
   console.log(req.body);
   Recipe.create(req.body)
     .then((recipeDoc) => res.status(200).json(recipeDoc))

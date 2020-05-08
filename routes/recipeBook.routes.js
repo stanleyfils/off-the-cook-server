@@ -12,7 +12,7 @@ const recipeBook = require("../models/RecipeBook.model");
 // POST - create a book
 
 // <form action="/books" method="POST">
-router.post("/recipeBooks", (req, res) => {
+router.post("/addRecipeBook", (req, res) => {
   // console.log(req.body);
   recipeBook
     .create(req.body)
