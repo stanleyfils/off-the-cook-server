@@ -65,6 +65,7 @@ recipeRouter.post("/searchRecipes", (req, res, next) => {
       `https://api.spoonacular.com/recipes/complexSearch?query=${req.body.param}&apiKey=${process.env.API_KEY}`
     )
     .then((recipesFromAPI) => {
+      console.log(recipesFromAPI);
       res.status(200).json(recipesFromAPI.data.results);
     })
     .catch((err) => res.status(400).json({ message: err }));
