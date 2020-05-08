@@ -29,7 +29,7 @@ recipeRouter.get("/recipes", (req, res, next) => {
 });
 
 // ****************************************************************************************
-// POST route to delete the recipe
+// POST route to delete a recipe
 
 recipeRouter.post("/recipes/:recipeId/delete", (req, res) => {
   Recipe.findByIdAndRemove(req.params.recipeId)
@@ -38,10 +38,10 @@ recipeRouter.post("/recipes/:recipeId/delete", (req, res) => {
 });
 
 // ****************************************************************************************
-// POST route to update the recipe
+// POST route to update a recipe
 
-recipeRouter.post("/recipes/:id/update", (req, res) => {
-  Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true })
+recipeRouter.post("/recipes/:recipeId/update", (req, res) => {
+  Recipe.findByIdAndUpdate(req.params.recipeId, req.body, { new: true })
     .then((updatedRecipe) => res.status(200).json(updatedRecipe))
     .catch((err) => next(err));
 });
@@ -69,6 +69,21 @@ recipeRouter.post("/searchRecipes", (req, res, next) => {
       res.status(200).json(recipesFromAPI.data.results);
     })
     .catch((err) => res.status(400).json({ message: err }));
+});
+
+// GET route for getting the ingredients for a recipe
+recipeRouter.post("/get-ingredients/:id", (req, res, next) => {
+  const { id } = req.params;
+  axios
+    .get(
+      `https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${process.env.API_KEY}`
+    )
+    .then((ingredients) => {
+      res.status(200).json(ingredients.data);
+    })
+    .catch((err) =>
+      console.log("Error while getting the ingredients on server side: ", err)
+    );
 });
 
 module.exports = recipeRouter;
