@@ -12,10 +12,11 @@ const recipeBook = require("../models/RecipeBook.model");
 // POST - create a book
 
 // <form action="/books" method="POST">
-router.post("/addRecipeBook", (req, res) => {
-  // console.log(req.body);
+router.post("/addRecipeBook", (req, res, next) => {
+  console.log(req.body);
+  const { title, description } = req.body;
   recipeBook
-    .create(req.body)
+    .create({ title, description })
     .then((bookDoc) => res.status(200).json(bookDoc))
     .catch((err) => next(err));
 });
@@ -23,7 +24,7 @@ router.post("/addRecipeBook", (req, res) => {
 // ****************************************************************************************
 // GET route to get all the books
 
-router.get("/recipeBooks", (req, res) => {
+router.get("/recipeBooks", (req, res, next) => {
   recipeBook
     .find()
     .then((booksFromDB) => res.status(200).json(booksFromDB))
@@ -34,7 +35,7 @@ router.get("/recipeBooks", (req, res) => {
 // POST route to delete the book
 
 // <form action="/books/{{this._id}}/delete" method="post">
-router.post("/recipeBooks/:recipeBookId/delete", (req, res) => {
+router.post("/recipeBooks/:recipeBookId/delete", (req, res, next) => {
   recipeBook
     .findByIdAndRemove(req.params.recipeBookId)
     .then(() => res.json({ message: "Successfully removed!" }))
@@ -42,10 +43,10 @@ router.post("/recipeBooks/:recipeBookId/delete", (req, res) => {
 });
 
 // ****************************************************************************************
-// POST route to save the updates
+// POST route to save recipe book updates
 
 // <form action="/books/{{foundBook._id}}/update" method="POST">
-router.post("/recipeBooks/:recipeBookId/update", (req, res) => {
+router.post("/recipeBooks/:recipeBookId/update", (req, res, next) => {
   recipeBook
     .findByIdAndUpdate(req.params.recipeBookId, req.body, { new: true })
     .then((updatedBook) => res.status(200).json(updatedBook))
@@ -55,7 +56,7 @@ router.post("/recipeBooks/:recipeBookId/update", (req, res) => {
 // ****************************************************************************************
 // GET route for getting the recipe book details
 
-router.get("/recipeBooks/:recipeBookId", (req, res) => {
+router.get("/recipeBooks/:recipeBookId", (req, res, next) => {
   recipeBook
     .findById(req.params.recipeBookId)
     .populate("recipe")

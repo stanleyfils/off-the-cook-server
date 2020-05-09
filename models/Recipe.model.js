@@ -1,22 +1,26 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const recipeSchema = new Schema(
-	{
-		title: { type: String, require: true },
-		prepTime: String,
-		cookTime: String,
-		servings: Number,
-		ingredients: { type: String, required: true },
-		directions: String,
-		nutrition: String
-		// image: URL
-	},
-	{
-		timestamp: true
-	}
+  {
+    title: { type: String, require: true },
+    id: Number,
+    cookTime: String,
+    servings: Number,
+    ingredients: String,
+    // directions: String,
+    // nutrition: String,
+    bookID: {
+      type: Schema.Types.ObjectId,
+      ref: "RecipeBook",
+    },
+    image: String,
+  },
+  {
+    timestamp: true,
+  }
 );
 
-module.exports = model('Recipe', recipeSchema);
+module.exports = model("Recipe", recipeSchema);
 
 //add author
