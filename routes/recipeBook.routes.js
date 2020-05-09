@@ -57,10 +57,14 @@ router.post("/recipeBooks/:recipeBookId/update", (req, res, next) => {
 // GET route for getting the recipe book details
 
 router.get("/recipeBooks/:recipeBookId", (req, res, next) => {
+  console.log("searching for recipeBook: ", req.params.recipeBookId);
   recipeBook
     .findById(req.params.recipeBookId)
-    .populate("recipe")
-    .then((foundBook) => res.status(200).json(foundBook))
+    .populate("recipes")
+    .then((foundBook) => {
+      console.log({ foundBook });
+      res.status(200).json(foundBook);
+    })
     .catch((err) => next(err));
 });
 
